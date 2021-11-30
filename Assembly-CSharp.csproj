@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{94A6A5CF-CEF2-E440-4EA9-DD3E220B6858}</ProjectGuid>
+    <ProjectGuid>{E859FA70-83DF-9B46-CE26-A48552F3522D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,6 +56,12 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Asset Store\Bullet Casing\Scripts\FP_Shooting.cs" />
+    <Compile Include="Assets\Asset Store\Bullet Casing\Scripts\Sound.cs" />
+    <Compile Include="Assets\Asset Store\Fx Explosion Pack\Script\DestroyEffect.cs" />
+    <Compile Include="Assets\Asset Store\Fx Explosion Pack\Script\csDemoScenceControl.cs" />
+    <Compile Include="Assets\Asset Store\Fx Explosion Pack\Script\csLightControl.cs" />
+    <Compile Include="Assets\Asset Store\Fx Explosion Pack\Script\csMouseOrbit.cs" />
     <Compile Include="Assets\GoogleVR\Beta\Demos\Scripts\DemoObjectController6DoF.cs" />
     <Compile Include="Assets\GoogleVR\Beta\Demos\Scripts\DemoSeeThroughController.cs" />
     <Compile Include="Assets\GoogleVR\Beta\Scripts\GvrBetaControllerInput.cs" />
@@ -180,18 +186,21 @@
     <Compile Include="Assets\GoogleVR\Scripts\Utilities\Internal\GvrCursorHelper.cs" />
     <Compile Include="Assets\GoogleVR\Scripts\Utilities\Internal\SuppressMemoryAllocationErrorAttribute.cs" />
     <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
+    <Compile Include="Assets\Script\EnemySetting.cs" />
+    <Compile Include="Assets\Script\OnPointer.cs" />
+    <Compile Include="Assets\Script\SceneSetting.cs" />
     <Compile Include="Assets\Script\cshController.cs" />
     <Compile Include="Assets\Script\cshPointerEvent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Supercyan Free Forest Sample\Shaders\Legacy\CelShader.shader" />
+    <None Include="Assets\Asset Store\Supercyan Free Forest Sample\Shaders\Legacy\CelShader.shader" />
     <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />
-    <None Include="Assets\Supercyan Free Forest Sample\Shaders\SupercyanShaderLighting.cginc" />
+    <None Include="Assets\Asset Store\Supercyan Free Forest Sample\Shaders\SupercyanShaderLighting.cginc" />
     <None Include="Assets\GoogleVR\Plugins\x86_64\ssleay32.dll" />
     <None Include="Assets\GoogleVR\Shaders\GvrReticleShader.shader" />
     <None Include="Assets\GoogleVR\Plugins\x86_64\instant_preview_shared.dll" />
     <None Include="Assets\GoogleVR\Beta\Shaders\GvrSeeThroughUI.shader" />
-    <None Include="Assets\Supercyan Free Forest Sample\Shaders\SupercyanShader.shader" />
+    <None Include="Assets\Asset Store\Supercyan Free Forest Sample\Shaders\SupercyanShader.shader" />
     <None Include="Assets\GoogleVR\Plugins\Android\AndroidManifest-Cardboard.xml" />
     <None Include="Assets\GoogleVR\Shaders\GvrUnlitTransparentOverlayColor.shader" />
     <None Include="Assets\GoogleVR\Plugins\x86_64\instant_preview_unity_plugin.dll" />
