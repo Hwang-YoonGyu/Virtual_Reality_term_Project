@@ -6,12 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
 public class OnPointer : MonoBehaviour
 {
-    public enum Role { Enemy, Screen, ExitScreen, Loader}
+    public enum Role { Enemy, Screen, ExitScreen, Loader, Recuperator, }
     public Role role;
     public Image LoadingBar;
     private bool IsOn;
     private float barTime = 0.0f;
-
+    private float time = 0.0f;
     public SceneSetting st;
     //------------------------------------------------------
     //Enemy 전용
@@ -21,14 +21,35 @@ public class OnPointer : MonoBehaviour
     public GameObject BombPrefab;
 
     //------------------------------------------------------
-    // Screen, ExitScreen 전용 전용
+    // Screen, ExitScreen 전용
 
     public GameObject Player;
     public GameObject PlayerTurret;
     public GameObject GunnerCanvas;
-    
+
+    //-------------------------------------------------------
+    //Loader 전용
+    public GameObject 
+
+
+
+
+
     //-----------------------------------------------------
-    bool enemyIsAlive = true;
+    //Recuperator 전용
+    public GameObject Recuperator;
+    private bool recuperatorOpen = false;
+    private bool recuperatorClose = false;
+
+
+    //-----------------------------------------------------
+    private bool enemyIsAlive = true;
+
+
+
+
+
+
     void Start()
     {
         st = GameObject.Find("SceneSetting").GetComponent<SceneSetting>();
@@ -41,22 +62,48 @@ public class OnPointer : MonoBehaviour
     {
         if (IsOn)
         {
-            if (barTime <= 5.0f)
+            if (barTime <= 2.0f)
             {
                 barTime += Time.deltaTime;
             }
-            else if (barTime > 5.0f) 
+            else if (barTime > 2.0f) 
             {
                 DoSomeThing();
                 barTime = 0;
             }
-            LoadingBar.fillAmount = barTime / 5.0f;
+            LoadingBar.fillAmount = barTime / 2.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+
+        if (recuperatorOpen) 
+        {
+            if (Recuperator.transform.position.z < 1.0f)
+            {
+                Recuperator.transform.position += new Vector3(0, 0, 0.01f);
+                
+            }
+            else if (Recuperator.transform.position.z >= 1.0f)
+            {
+                recuperatorOpen = false; 
+            }
+        }
+        if (recuperatorClose) 
+        {
+            if (Recuperator.transform.position.z > 0.0f)
+            {
+                Recuperator.transform.position -= new Vector3(0, 0, 0.01f);
+
+            }
+            else if (Recuperator.transform.position.z <= 0.0f)
+            {
+                recuperatorClose = false;
+            }
+        }
+
     }
     public void SetGazedAt(bool gazedAt)
     {
@@ -90,6 +137,9 @@ public class OnPointer : MonoBehaviour
             case Role.Loader:
                 OnLoad();
                 break;
+            case Role.Recuperator:
+                recuperator();
+                break;
         }
 
     }
@@ -99,12 +149,18 @@ public class OnPointer : MonoBehaviour
         Debug.Log("Distroy Enemy");
         if (enemyIsAlive)
         {
-            Instantiate(BombPrefab, EnemyTank.GetComponent<Transform>().position, EnemyTank.GetComponent<Transform>().rotation);
-            EnemyTankTurret.GetComponent<Rigidbody>().AddForce(new Vector3(20, 300, 20));
-            barTime = 0.0f; // 바로 상호작용하는것을 막기위해 barTime 초기화
-            enemyIsAlive = false;
-            st.killCount++; // SceneSetting의 killCount를 1 추가
-
+            if (st.isLoad)
+            {
+                Instantiate(BombPrefab, EnemyTank.GetComponent<Transform>().position, EnemyTank.GetComponent<Transform>().rotation);
+                EnemyTankTurret.GetComponent<Rigidbody>().AddForce(new Vector3(20, 300, 20));
+                barTime = 0.0f; // 바로 상호작용하는것을 막기위해 barTime 초기화
+                enemyIsAlive = false;
+                st.isLoad = false;
+                st.killCount++; // SceneSetting의 killCount를 1 추가
+            }
+            else {
+                Debug.Log("But, No load yet");
+            }
         }
         else if (!enemyIsAlive) 
         {
@@ -116,10 +172,12 @@ public class OnPointer : MonoBehaviour
     }
 
     void GotoAim() {
+        
         Debug.Log("Goto Aim");
         Player.transform.position = new Vector3(72.67604f, -2.164f, 13.46046f);
         PlayerTurret.SetActive(true);
         GunnerCanvas.SetActive(true);
+        
     }
     void ExitScreen()
     {
@@ -131,5 +189,19 @@ public class OnPointer : MonoBehaviour
     void OnLoad()
     {
         
+    }
+
+    void recuperator()
+    {
+        if (st.recuperatorOpened)
+        {
+            st.recuperatorOpened = false;
+            recuperatorClose = true;
+        }
+        else if (!st.recuperatorOpened) 
+        {
+            st.recuperatorOpened = true;
+            recuperatorOpen = true;
+        }
     }
 }

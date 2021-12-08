@@ -7,7 +7,8 @@ public class SceneSetting : MonoBehaviour
 {
     public int killCount =0;
     public bool isEnemy = true;
-    public bool isLoad = false;
+    public bool isLoad = true;
+    public bool recuperatorOpened = false;
     public Text t;
 
     //---------------------------------------
