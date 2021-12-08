@@ -29,10 +29,14 @@ public class OnPointer : MonoBehaviour
 
     //-------------------------------------------------------
     //Loader 전용
-    public GameObject 
-
-
-
+    public GameObject Bullet;
+    private GameObject copyBullet;
+    public GameObject barrel;
+    private int rot = 1;
+    private bool copyBulletMove1 = false;
+    private bool copyBulletMove2 = false;
+    private bool copyBulletMove3 = false;
+    private bool copyBulletMove4 = false;
 
 
     //-----------------------------------------------------
@@ -103,7 +107,52 @@ public class OnPointer : MonoBehaviour
                 recuperatorClose = false;
             }
         }
-
+        if (copyBulletMove1 == true) 
+        {
+            if (copyBullet.transform.position.y <= barrel.transform.position.y)
+            {
+                copyBullet.transform.position += new Vector3(0, 0.01f, 0);
+            }
+            else if (copyBullet.transform.position.y > barrel.transform.position.y) 
+            {
+                copyBulletMove1 = false;
+                copyBulletMove2 = true;
+            }
+        }
+        if (copyBulletMove2 == true) 
+        {
+            
+            copyBullet.transform.rotation = Quaternion.Slerp(copyBullet.transform.rotation, Quaternion.Euler(new Vector3(-90, 0, 0)), 0.01f);
+            copyBulletMove3 = true;
+        }
+        if (copyBulletMove3 == true) 
+        {
+            if (copyBullet.transform.position.z <= barrel.transform.position.z)
+            {
+                copyBullet.transform.position += new Vector3(0, 0, 0.01f);
+            }
+            else if (copyBullet.transform.position.z > barrel.transform.position.z)
+            {
+                copyBulletMove3 = false;
+                copyBulletMove2 = false;
+                copyBulletMove4 = true;
+            }
+        }
+        if (copyBulletMove4 == true)
+        {
+            if (copyBullet.transform.position.x >= barrel.transform.position.x)
+            {
+                copyBullet.transform.position -= new Vector3(0.01f, 0, 0);
+            }
+            else if (copyBullet.transform.position.x < barrel.transform.position.x)
+            {
+                copyBulletMove4 = false;
+                copyBulletMove2 = false;
+                
+                st.isLoad = true;
+                
+            }
+        }
     }
     public void SetGazedAt(bool gazedAt)
     {
@@ -188,9 +237,14 @@ public class OnPointer : MonoBehaviour
     }
     void OnLoad()
     {
-        
-    }
+        copyBullet = Instantiate(Bullet,Bullet.transform.position,Bullet.transform.rotation);
+        copyBulletMove1 = true;
 
+    }
+    void BulletRot() 
+    {
+        copyBullet.transform.rotation = Quaternion.Slerp(copyBullet.transform.rotation, Quaternion.Euler(new Vector3(-90, 0, 0)), 0.01f);
+    }
     void recuperator()
     {
         if (st.recuperatorOpened)
