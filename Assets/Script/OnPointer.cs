@@ -19,6 +19,7 @@ public class OnPointer : MonoBehaviour
     public GameObject EnemyTank;
     public GameObject EnemyTankTurret;
     public GameObject BombPrefab;
+    public AudioSource Audio;
 
     //------------------------------------------------------
     // Screen, ExitScreen 전용
@@ -58,6 +59,7 @@ public class OnPointer : MonoBehaviour
     {
         st = GameObject.Find("SceneSetting").GetComponent<SceneSetting>();
         LoadingBar = GameObject.Find("LoadingBar").GetComponent<Image>();
+        Audio = GameObject.Find("player Camera").GetComponent<AudioSource>();
         IsOn = false;
         LoadingBar.fillAmount = 0;
     }
@@ -92,7 +94,8 @@ public class OnPointer : MonoBehaviour
             }
             else if (Recuperator.transform.position.z >= 1.0f)
             {
-                recuperatorOpen = false; 
+                recuperatorOpen = false;
+                st.recuperatorOpened = true;
             }
         }
         if (recuperatorClose) 
@@ -105,6 +108,7 @@ public class OnPointer : MonoBehaviour
             else if (Recuperator.transform.position.z <= 0.0f)
             {
                 recuperatorClose = false;
+                st.recuperatorOpened = false;
             }
         }
         if (copyBulletMove1 == true) 
@@ -198,9 +202,10 @@ public class OnPointer : MonoBehaviour
         Debug.Log("Distroy Enemy");
         if (enemyIsAlive)
         {
-            if (st.isLoad)
+            if (st.isLoad && !st.recuperatorOpened)
             {
                 Instantiate(BombPrefab, EnemyTank.GetComponent<Transform>().position, EnemyTank.GetComponent<Transform>().rotation);
+                Audio.Play();
                 EnemyTankTurret.GetComponent<Rigidbody>().AddForce(new Vector3(20, 300, 20));
                 barTime = 0.0f; // 바로 상호작용하는것을 막기위해 barTime 초기화
                 enemyIsAlive = false;

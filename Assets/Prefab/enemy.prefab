@@ -287,9 +287,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   role: 0
   LoadingBar: {fileID: 0}
+  st: {fileID: 0}
   EnemyTank: {fileID: 6198290246400453372}
   EnemyTankTurret: {fileID: 7515143067148152529}
   BombPrefab: {fileID: 100012, guid: 5f5e08f64c8423c46ae4bd7e46588425, type: 3}
+  Audio: {fileID: 0}
+  Player: {fileID: 0}
+  PlayerTurret: {fileID: 0}
+  GunnerCanvas: {fileID: 0}
+  Bullet: {fileID: 0}
+  barrel: {fileID: 0}
+  Recuperator: {fileID: 0}
 --- !u!114 &6198290246400453369
 MonoBehaviour:
   m_ObjectHideFlags: 0
