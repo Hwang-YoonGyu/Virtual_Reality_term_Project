@@ -26,7 +26,7 @@ public class SceneSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        t.text = "Kill Count : " + killCount + "\n" + "Loaded : " + isLoad + "\n" + "Recuperator :" + !recuperatorOpened;
+        t.text = "Kill Count : " + killCount + "\n" + "Loaded : " + isLoad + "\n" + "Recuperator Close :" + !recuperatorOpened;
         if (!isEnemy) {
 
            

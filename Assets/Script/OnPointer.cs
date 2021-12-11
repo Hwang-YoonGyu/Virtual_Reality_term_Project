@@ -211,6 +211,8 @@ public class OnPointer : MonoBehaviour
                 enemyIsAlive = false;
                 st.isLoad = false;
                 st.killCount++; // SceneSetting의 killCount를 1 추가
+                GameObject b = GameObject.Find("bullet_low (8)(Clone)");
+                Destroy(b);
             }
             else {
                 Debug.Log("But, No load yet");
